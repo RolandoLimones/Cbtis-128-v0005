@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/tramites/credencial_escolar.css' %}">
+    <div class="contenedor-principal">
+        <h2>CREDENCIAL ESCOLAR</h2>
+    </div>
+    
+    <section class="seccion seccion-reposicion">
+        <div class="contenido-seccion">
+            <div class="texto-seccion">
+                <h3><strong>Reposición de Credencial (en caso de extravío o robo)</strong></h3>
+                <p>Si por alguna razón tu credencial se extravía o te la roban, sigue estos pasos:</p>
+                <ol class="lista-animada">
+                    <li>Dirígete a Recursos Financieros para realizar el pago correspondiente. El costo es de $100 pesos.</li>
+                    <li>Recibirás un comprobante de pago.</li>
+                    <li>Con el comprobante, dirígete a Control Escolar y solicita la reposición de tu credencial.</li>
+                    <li>Te tomarán una nueva fotografía para la credencial.</li>
+                    <li>Espera unos minutos mientras procesan tu nueva credencial.</li>
+                </ol>
+                <p>¡Listo! Ya tienes tu nueva credencial escolar.</p>
+            </div>
+            <div class="imagen-seccion">
+                <img src="{% static 'imagenes/tramites/credencial_1.png' %}" alt="Reposición de credencial">
+            </div>
+        </div>
+    </section>
+    
+    <section class="seccion seccion-renovacion">
+        <div class="contenido-seccion">
+            <div class="imagen-seccion">
+                <img src="{% static 'imagenes/tramites/credencial_2.png' %}" alt="Renovación de credencial">
+            </div>
+            <div class="texto-seccion">
+                <h3><strong>Renovación de Credencial (para nuevo ciclo escolar)</strong></h3>
+                <p>Para renovar tu credencial al inicio de un nuevo ciclo escolar:</p>
+                <ol class="lista-animada">
+                    <li>Dirígete a Control Escolar con tu credencial actual.</li>
+                    <li>Solicita la renovación de tu credencial.</li>
+                    <li>El personal te colocará un sticker de renovación en la parte posterior de tu credencial.</li>
+                </ol>
+                <p>¡Listo! Tu credencial ya está renovada y válida para el nuevo ciclo escolar.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="seccion seccion-nota">
+        <div class="contenido-seccion">
+            <div class="texto-seccion">
+                <div class="nota-destacada">
+                    <h4><strong>Nota:</strong></h4>
+                    <p>Recuerda que tu credencial escolar es un documento de identificación oficial dentro de la institución. Mantenla en buen estado y evita su extravío.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Efecto de aparición al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Si es una lista, animar cada elemento individualmente
+                        if (entry.target.classList.contains('lista-animada')) {
+                            const listItems = entry.target.querySelectorAll('li');
+                            listItems.forEach((item, index) => {
+                                setTimeout(() => {
+                                    item.classList.add('visible');
+                                }, index * 150); // Retardo escalonado
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // Aplicar animación a las secciones principales
+            const sections = document.querySelectorAll('.seccion');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Aplicar animación a las imágenes
+            const images = document.querySelectorAll('.imagen-seccion');
+            images.forEach(image => {
+                observer.observe(image);
+            });
+
+            // Aplicar animación a las listas
+            const lists = document.querySelectorAll('.lista-animada');
+            lists.forEach(list => {
+                observer.observe(list);
+            });
+
+            // Aplicar animación a la nota destacada
+            const notaDestacada = document.querySelector('.nota-destacada');
+            if (notaDestacada) {
+                observer.observe(notaDestacada);
+            }
+        });
+    </script>
+{% endblock %}
